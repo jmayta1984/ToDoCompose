@@ -10,26 +10,23 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import pe.edu.upc.todoapp.Routes
-import pe.edu.upc.todoapp.data.local.AppDatabase
 import pe.edu.upc.todoapp.data.models.Task
 
 @Composable
 fun Home(
+    viewModel: HomeViewModel,
     navController: NavController,
     selectTask: (Int) -> Unit
 ) {
 
-    val context = LocalContext.current
-    var tasks by remember { mutableStateOf(mutableListOf<Task>())}
+    val tasks: List<Task> by viewModel.tasks.observeAsState(listOf())
 
-    LaunchedEffect(key1 = Unit, block = {
-        tasks = AppDatabase.getInstance(context).taskDao().fetchAll()
-    })
+    viewModel.fetchAll()
 
     Scaffold(
         floatingActionButton = {
@@ -45,7 +42,7 @@ fun Home(
 }
 
 @Composable
-fun TaskList(tasks: MutableList<Task>, selectTask: (Int) -> Unit) {
+fun TaskList(tasks: List<Task>, selectTask: (Int) -> Unit) {
     LazyColumn {
         items(tasks) { task ->
             TaskRow(task, selectTask)
