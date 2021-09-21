@@ -1,8 +1,7 @@
-<h1 align="center">ToDoCompose</h1></br>
+<h1 align="center">ToDoCompose</h1>
 <p align="center">  
 A demo app using compose based on modern Android tech-stacks and MVVM architecture. Persisted data in the database via repository pattern, using compose.
 </p>
-</br>
 
 <p align="center">
   <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
